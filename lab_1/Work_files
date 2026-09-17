@@ -1,0 +1,32 @@
+mkdir Work
+cd Work
+mkdir "Лабораторная работа №1!"
+mkdir "Sorokin Nikita Vasilyevich"
+chmod 772 "Лабораторная работа №1!"
+chmod 200 "Sorokin Nikita Vasilyevich"
+
+touch "Text @1"
+touch "Text $2"
+touch "Text #3"
+
+echo "Птица говорун отличается умом и сообразительностью!" > "Text @1"
+echo "Отличается умом, отличается сообразительностью..." >> "Text @1"
+cat "Text @1" > "Text $2"
+mv "Text $2" "Лабораторная работа №1!"
+cp "Text @1" "Sorokin Nikita Vasilyevich"
+
+gzip -c "Text @1" > "Text @1.gz"
+gzip -c "Text #3" > "Text #3.gz"
+tar -cf MyAchiv "Text @1.gz" "Text #3.gz"
+
+head -n 1 "Text @1" > "Text #3"
+echo "Будь осторожен! Преступник вооружен!" >> "Text #3"
+
+tac "Text @1" > "Sorokin Nikita Vasilyevich/Result_one"
+mv "Sorokin Nikita Vasilyevich/Result_one" "Sorokin Nikita Vasilyevich/Result_two"
+
+ls "Sorokin Nikita Vasilyevich" | grep '^T' | xargs -I {} sh -c 'cat "Sorokin Nikita Vasilyevich/{}" >> "Лабораторная работа №1!/Result_3"'
+{ uname -a; date; } >> "Лабораторная работа №1!/Result_3"
+
+mkdir sandbox
+mv Sorokin.asm Sorokin.o a.out C_version.c c_version Disassemble.txt sandbox/

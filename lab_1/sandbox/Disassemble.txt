@@ -1,0 +1,32 @@
+Reading symbols from c_version...
+Dump of assembler code for function main:
+   0x0000000000001149 <+0>:	55	push   %rbp
+   0x000000000000114a <+1>:	4889e5	mov    %rsp,%rbp
+   0x000000000000114d <+4>:	488d35f0ffffff	lea    0xfffffff0(%rip),%rdi
+   0x0000000000001154 <+11>:	e8b0feffff	callq  0x1030 <printf@plt>
+   0x0000000000001159 <+16>:	b800000000	mov    $0,%eax
+   0x000000000000115e <+21>:	5d	pop    %rbp
+   0x000000000000115f <+22>:	c3	retq
+End of assembler dump.
+
+Reading symbols from a.out...
+Dump of assembler code for function _start:
+   0x08048000 <+0>:	b8 04 00 00 00	mov    $0x4,%eax
+   0x08048005 <+5>:	bb 01 00 00 00	mov    $0x1,%ebx
+   0x0804800a <+10>:	b9 00 a0 04 08	mov    $0x0804a000,%ecx
+   0x0804800f <+15>:	ba 07 00 00 00	mov    $0x7,%edx
+   0x08048014 <+20>:	cd 80	int    $0x80
+   0x08048016 <+22>:	b8 04 00 00 00	mov    $0x4,%eax
+   0x0804801b <+27>:	bb 01 00 00 00	mov    $0x1,%ebx
+   0x08048020 <+32>:	b9 05 a0 04 08	mov    $0x0804a005,%ecx
+   0x08048025 <+37>:	ba 06 00 00 00	mov    $0x6,%edx
+   0x0804802a <+42>:	cd 80	int    $0x80
+   0x0804802c <+44>:	b8 04 00 00 00	mov    $0x4,%eax
+   0x08048031 <+49>:	bb 01 00 00 00	mov    $0x1,%ebx
+   0x08048036 <+54>:	b9 0b a0 04 08	mov    $0x0804a00b,%ecx
+   0x0804803b <+59>:	ba 0b 00 00 00	mov    $0x11,%edx
+   0x08048040 <+64>:	cd 80	int    $0x80
+   0x08048042 <+66>:	b8 01 00 00 00	mov    $0x1,%eax
+   0x08048047 <+71>:	bb 00 00 00 00	mov    $0x0,%ebx
+   0x0804804c <+76>:	cd 80	int    $0x80
+End of assembler dump.
