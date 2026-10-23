@@ -1,0 +1,2 @@
+number of letters:10
+number of digits:6
