@@ -1,18 +1,11 @@
-; Лабораторная работа №2, вариант 19
-; ФИО: Сорокин Никита Васильевич
-; Задание 5. Ассемблерная версия задания 4 для сравнения с C.
-
 format ELF64
 
 public _start
 
-section '.data' writeable
 number dq 5161088985
 
-section '.bss' writeable
 buffer rb 32
 
-section '.text' executable
 _start:
     mov rax,[number]
     xor r8d,r8d

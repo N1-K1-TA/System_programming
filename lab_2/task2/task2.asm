@@ -1,7 +1,3 @@
-; Лабораторная работа №2, вариант 19
-; ФИО: Сорокин Никита Васильевич
-; Задание 2. Матрица M x K из N символов.
-
 format ELF64
 
 public _start
@@ -10,11 +6,9 @@ M = 2
 K = 3
 N = 6
 
-section '.bss' writeable
 matrix rb N
 output rb (M+1)*K
 
-section '.text' executable
 _start:
     lea rdi,[matrix]
     mov rcx,N

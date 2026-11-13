@@ -1,15 +1,9 @@
-; Лабораторная работа №2, вариант 19
-; ФИО: Сорокин Никита Васильевич
-; Задание 3. Треугольник из N=6 символов '$'.
-
 format ELF64
 
 public _start
 
-section '.bss' writeable
 output rb 16
 
-section '.text' executable
 _start:
     lea rdi,[output]
     mov r8d,1

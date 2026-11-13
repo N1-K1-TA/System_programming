@@ -1,19 +1,13 @@
-; Лабораторная работа №2, вариант 19
-; ФИО: Сорокин Никита Васильевич
-; Задание 1. Вывод строки S в обратном порядке.
-
 format ELF64
 
 public _start
 
-section '.data' writeable
-s db 'NIiUjmvIsSpDdudQxauBx'
+s db 0xA, 'NIiUjmvIsSpDdudQxauBx'
 s_len = $-s
 
-section '.bss' writeable
 buf rb s_len
 
-section '.text' executable
+
 _start:
     lea rsi,[s]
     lea rdi,[buf+s_len-1]

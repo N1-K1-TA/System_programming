@@ -1,18 +1,11 @@
-; Лабораторная работа №2, вариант 19
-; ФИО: Сорокин Никита Васильевич
-; Задание 4. Сумма цифр числа N.
-
 format ELF64
 
 public _start
 
-section '.data' writeable
 number dq 5161088985
 
-section '.bss' writeable
 buffer rb 32
 
-section '.text' executable
 _start:
     mov rax,[number]
     xor r8d,r8d
