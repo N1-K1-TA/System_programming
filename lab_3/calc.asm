@@ -1,176 +1,138 @@
 format ELF64
 public _start
 
-_start:
-    mov rax, [rsp]
-    cmp rax, 4
-    jne .input_error
+msg db 'Result = '
+len = $ - msg
+usage db 'Usage: ./calc a b c', 10
+usage_len = $ - usage
+minus db '-'
+buf rb 32
+newline db 10
 
-    mov rsi, [rsp + 16]
-    call parse_int
+_start:
+    cmp qword [rsp], 4
+    jne error
+
+    mov rsi, [rsp+16]
+    call atoi
     mov r12d, eax
 
-    mov rsi, [rsp + 24]
-    call parse_int
+    mov rsi, [rsp+24]
+    call atoi
     mov r13d, eax
 
-    mov rsi, [rsp + 32]
-    call parse_int
+    mov rsi, [rsp+32]
+    call atoi
     mov r14d, eax
 
+    ; (((a+c)-b)*c*c)-c
     mov eax, r12d
     add eax, r14d
     sub eax, r13d
     imul eax, r14d
     imul eax, r14d
     sub eax, r14d
+
     mov r15d, eax
 
-    mov rsi, expression_msg
-    mov edx, expression_msg_len
-    call print_string
-
-    mov eax, r12d
-    call print_int
-
-    mov rsi, b_msg
-    mov edx, b_msg_len
-    call print_string
-
-    mov eax, r13d
-    call print_int
-
-    mov rsi, c_msg
-    mov edx, c_msg_len
-    call print_string
-
-    mov eax, r14d
-    call print_int
-
-    mov rsi, result_label
-    mov edx, result_label_len
-    call print_string
+    mov rsi, msg
+    mov edx, len
+    call print
 
     mov eax, r15d
-    call print_int
+    call print_num
 
     mov rsi, newline
     mov edx, 1
-    call print_string
+    call print
 
-    jmp .exit
+    jmp exit
 
-.input_error:
-    mov rsi, usage_msg
-    mov edx, usage_msg_len
-    call print_string
+error:
+    mov rsi, usage
+    mov edx, usage_len
+    call print
 
-.exit:
+exit:
     mov eax, 60
     xor edi, edi
     syscall
 
-parse_int:
+; string to number
+atoi:
     xor eax, eax
     xor ecx, ecx
 
     cmp byte [rsi], '-'
-    jne .digits
-
+    jne .loop
     mov ecx, 1
     inc rsi
 
-.digits:
+.loop:
     movzx edx, byte [rsi]
-    test dl, dl
-    jz .done
-
     cmp dl, '0'
-    jb .done
+    jb .end
     cmp dl, '9'
-    ja .done
+    ja .end
 
-    imul eax, eax, 10
-    sub edx, '0'
+    imul eax, 10
+    sub dl, '0'
     add eax, edx
-
     inc rsi
-    jmp .digits
+    jmp .loop
 
-.done:
+.end:
     test ecx, ecx
-    jz .return
-
+    jz .ret
     neg eax
-
-.return:
+.ret:
     ret
 
-print_string:
+; print string
+print:
     mov eax, 1
     mov edi, 1
     syscall
     ret
 
-print_int:
+; print number
+print_num:
     test eax, eax
     jns .positive
 
     push rax
     mov rsi, minus
     mov edx, 1
-    call print_string
+    call print
     pop rax
     neg eax
 
 .positive:
-    mov r8, num_buffer
+    mov r8, buf
     add r8, 31
-
-    xor ecx, ecx
-    mov ebx, 10
+    mov ecx, 10
+    xor ebx, ebx
 
     test eax, eax
     jnz .convert
 
     dec r8
     mov byte [r8], '0'
-    mov ecx, 1
-    jmp .write
+    inc ebx
+    jmp .show
 
 .convert:
     xor edx, edx
-    div ebx
+    div ecx
     add dl, '0'
     dec r8
     mov [r8], dl
-    inc ecx
+    inc ebx
     test eax, eax
     jnz .convert
 
-.write:
+.show:
     mov rsi, r8
-    mov edx, ecx
-    call print_string
+    mov edx, ebx
+    call print
     ret
-
-
-expression_msg db 'Expression: (((((a+c)-b)*c)*c)-c)', 10
-expression_msg_len = $ - expression_msg
-
-b_msg db ', b = '
-b_msg_len = $ - b_msg
-
-c_msg db ', c = '
-c_msg_len = $ - c_msg
-
-result_label db ', result = '
-result_label_len = $ - result_label
-
-usage_msg db 'Usage: ./calc a b c', 10
-usage_msg_len = $ - usage_msg
-
-minus db '-'
-newline db 10
-
-num_buffer rb 32
