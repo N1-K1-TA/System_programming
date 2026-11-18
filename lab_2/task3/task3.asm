@@ -2,12 +2,16 @@ format ELF64
 
 public _start
 
-output rb 16
+M = 3
+K = 3
+N = M*(M+1)/2
+
+output rb N+K
 
 _start:
     lea rdi,[output]
-    mov r8d,1
 
+    mov r8d,1
 .row:
     mov r9d,r8d
 .col:
@@ -24,7 +28,7 @@ _start:
     mov eax,1
     mov edi,1
     lea rsi,[output]
-    mov edx,9
+    mov edx,N+K
     syscall
 
     mov eax,60

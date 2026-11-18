@@ -14,12 +14,12 @@ _start:
 
     mov al, [rsi]
     mov rcx, 10
-.loop:
+.loop1:
     mov [char_buf], al
     mov rsi, char_buf
     call print_str
     call new_line
     inc al
-    loop .loop
+    loop .loop1
 
     call exit

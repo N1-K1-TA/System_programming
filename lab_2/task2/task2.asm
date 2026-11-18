@@ -4,7 +4,7 @@ public _start
 
 M = 2
 K = 3
-N = 6
+N = M*K
 
 matrix rb N
 output rb (M+1)*K
@@ -20,8 +20,8 @@ _start:
 
     lea rsi,[matrix]
     lea rdi,[output]
-    mov r8d,K
 
+    mov r8d,K
 .row:
     mov r9d,M
 .col:
@@ -36,6 +36,7 @@ _start:
     inc rdi
     dec r8d
     jnz .row
+
 
     mov eax,1
     mov edi,1

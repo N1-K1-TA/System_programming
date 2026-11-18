@@ -7,7 +7,6 @@ s_len = $-s
 
 buf rb s_len
 
-
 _start:
     lea rsi,[s]
     lea rdi,[buf+s_len-1]

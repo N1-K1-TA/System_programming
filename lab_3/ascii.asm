@@ -4,7 +4,7 @@ public _start
 msg db 'ASCII-code: '
 msg_len = $ - msg
 newline db 10
-num_buffer rb 32
+num_buffer rb 3
 
 _start:
     mov rax, [rsp]
@@ -39,7 +39,7 @@ print_string:
 
 print_uint:
     mov r8, num_buffer
-    add r8, 31
+    add r8, 3
 
     xor ecx, ecx
     mov ebx, 10

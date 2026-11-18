@@ -4,7 +4,9 @@ public _start
 
 number dq 5161088985
 
-buffer rb 32
+N=32
+
+buffer rb N
 
 _start:
     mov rax,[number]
@@ -19,7 +21,7 @@ _start:
     jnz .sum_loop
 
     mov rax,r8
-    lea rdi,[buffer+31]
+    lea rdi,[buffer+N-1]
     mov byte [rdi],10
     dec rdi
 
@@ -34,7 +36,7 @@ _start:
 
     inc rdi
     lea rsi,[rdi]
-    lea rdx,[buffer+32]
+    lea rdx,[buffer+N-1]
     sub rdx,rsi
 
     mov eax,1
