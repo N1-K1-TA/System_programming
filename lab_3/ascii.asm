@@ -1,9 +1,12 @@
-format ELF64 executable 3
-entry start
+format ELF64
+public _start
 
-segment readable executable
+msg db 'ASCII-code: '
+msg_len = $ - msg
+newline db 10
+num_buffer rb 32
 
-start:
+_start:
     mov rax, [rsp]
     cmp rax, 2
     jl .exit
@@ -55,10 +58,3 @@ print_uint:
     mov edx, ecx
     call print_string
     ret
-
-segment readable writeable
-
-msg db 'ASCII-code: '
-msg_len = $ - msg
-newline db 10
-num_buffer rb 32

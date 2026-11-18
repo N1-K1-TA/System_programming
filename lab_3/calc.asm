@@ -1,9 +1,7 @@
-format ELF64 executable 3
-entry start
+format ELF64
+public _start
 
-segment readable executable
-
-start:
+_start:
     mov rax, [rsp]
     cmp rax, 4
     jne .input_error
@@ -20,8 +18,6 @@ start:
     call parse_int
     mov r14d, eax
 
-    ; Вариант 19:
-    ; (((((a+c)-b)*c)*c)-c)
     mov eax, r12d
     add eax, r14d
     sub eax, r13d
@@ -158,7 +154,6 @@ print_int:
     call print_string
     ret
 
-segment readable writeable
 
 expression_msg db 'Expression: (((((a+c)-b)*c)*c)-c)', 10
 expression_msg_len = $ - expression_msg
